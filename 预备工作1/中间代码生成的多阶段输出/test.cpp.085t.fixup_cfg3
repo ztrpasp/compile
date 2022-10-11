@@ -1,0 +1,165 @@
+
+;; Function std::pow<float, int> (_ZSt3powIfiEN9__gnu_cxx11__promote_2IT_T0_NS0_9__promoteIS2_XsrSt12__is_integerIS2_E7__valueEE6__typeENS4_IS3_XsrS5_IS3_E7__valueEE6__typeEE6__typeES2_S3_, funcdef_no=1752, decl_uid=41293, cgraph_uid=596, symbol_order=598)
+
+std::pow<float, int> (float __x, int __y)
+{
+  __type D.44973;
+  double _1;
+  double _2;
+  __type _7;
+
+  <bb 2> :
+  _1 = (double) __y_3(D);
+  _2 = (double) __x_4(D);
+  _7 = pow (_2, _1);
+
+  <bb 3> :
+<L0>:
+  return _7;
+
+}
+
+
+
+;; Function cal_area (_Z8cal_areaf, funcdef_no=1751, decl_uid=41283, cgraph_uid=597, symbol_order=599)
+
+cal_area (float r)
+{
+  float D.44971;
+  double _1;
+  double _2;
+  float _6;
+
+  <bb 2> :
+  _1 = std::pow<float, int> (r_4(D), 2);
+  _2 = _1 * 3.140000000000000124344978758017532527446746826171875e+0;
+  _6 = (float) _2;
+
+  <bb 3> :
+<L0>:
+  return _6;
+
+}
+
+
+
+;; Function cal_perimeter (_Z13cal_perimeterf, funcdef_no=1753, decl_uid=41310, cgraph_uid=598, symbol_order=600)
+
+cal_perimeter (float r)
+{
+  float D.44975;
+  double _1;
+  double _2;
+  float _4;
+
+  <bb 2> :
+  _1 = (double) r_3(D);
+  _2 = _1 * 6.28000000000000024868995751603506505489349365234375e+0;
+  _4 = (float) _2;
+
+  <bb 3> :
+<L0>:
+  return _4;
+
+}
+
+
+
+;; Function main (main, funcdef_no=1754, decl_uid=41312, cgraph_uid=599, symbol_order=601)
+
+main ()
+{
+  struct __ostream_type & D.44982;
+  float D.44981;
+  float area;
+  int i;
+  int n;
+  int D.44979;
+  int n.0_1;
+  float _2;
+  struct __ostream_type & _3;
+  float _10;
+  struct __ostream_type & _13;
+  int _15;
+
+  <bb 2> :
+  std::basic_istream<char>::operator>> (&cin, &n);
+
+  <bb 3> :
+  i_8 = 1;
+
+  <bb 4> :
+  n.0_1 = n;
+  if (i_8 > n.0_1)
+    goto <bb 8>; [INV]
+  else
+    goto <bb 5>; [INV]
+
+  <bb 5> :
+  _2 = (float) i_8;
+  _10 = cal_area (_2);
+  area_11 = _10;
+  _13 = std::basic_ostream<char>::operator<< (&cout, area_11);
+
+  <bb 6> :
+  _3 = _13;
+  std::basic_ostream<char>::operator<< (_3, endl);
+
+  <bb 7> :
+  goto <bb 4>; [INV]
+
+  <bb 8> :
+  _15 = 0;
+  n ={v} {CLOBBER};
+
+  <bb 9> :
+<L4>:
+  return _15;
+
+  <bb 10> :
+<L5>:
+  n ={v} {CLOBBER};
+  resx 1
+
+}
+
+
+
+;; Function __static_initialization_and_destruction_0 (_Z41__static_initialization_and_destruction_0ii, funcdef_no=2241, decl_uid=44963, cgraph_uid=1086, symbol_order=1112)
+
+__static_initialization_and_destruction_0 (int __initialize_p, int __priority)
+{
+  <bb 2> :
+  if (__initialize_p_2(D) == 1)
+    goto <bb 3>; [INV]
+  else
+    goto <bb 5>; [INV]
+
+  <bb 3> :
+  if (__priority_4(D) == 65535)
+    goto <bb 4>; [INV]
+  else
+    goto <bb 5>; [INV]
+
+  <bb 4> :
+  std::ios_base::Init::Init (&__ioinit);
+  __cxa_atexit (__dt_comp , &__ioinit, &__dso_handle);
+
+  <bb 5> :
+  return;
+
+}
+
+
+
+;; Function _GLOBAL__sub_I__Z8cal_areaf (_GLOBAL__sub_I__Z8cal_areaf, funcdef_no=2242, decl_uid=44969, cgraph_uid=1087, symbol_order=1242)
+
+_GLOBAL__sub_I__Z8cal_areaf ()
+{
+  <bb 2> :
+  __static_initialization_and_destruction_0 (1, 65535);
+  return;
+
+}
+
+

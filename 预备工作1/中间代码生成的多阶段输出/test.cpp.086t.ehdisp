@@ -1,0 +1,59 @@
+
+;; Function main (main, funcdef_no=1754, decl_uid=41312, cgraph_uid=599, symbol_order=601)
+
+main ()
+{
+  struct __ostream_type & D.44982;
+  float D.44981;
+  float area;
+  int i;
+  int n;
+  int D.44979;
+  int n.0_1;
+  float _2;
+  struct __ostream_type & _3;
+  float _10;
+  struct __ostream_type & _13;
+  int _15;
+
+  <bb 2> :
+  std::basic_istream<char>::operator>> (&cin, &n);
+
+  <bb 3> :
+  i_8 = 1;
+
+  <bb 4> :
+  n.0_1 = n;
+  if (i_8 > n.0_1)
+    goto <bb 8>; [INV]
+  else
+    goto <bb 5>; [INV]
+
+  <bb 5> :
+  _2 = (float) i_8;
+  _10 = cal_area (_2);
+  area_11 = _10;
+  _13 = std::basic_ostream<char>::operator<< (&cout, area_11);
+
+  <bb 6> :
+  _3 = _13;
+  std::basic_ostream<char>::operator<< (_3, endl);
+
+  <bb 7> :
+  goto <bb 4>; [INV]
+
+  <bb 8> :
+  _15 = 0;
+  n ={v} {CLOBBER};
+
+  <bb 9> :
+<L4>:
+  return _15;
+
+  <bb 10> :
+<L5>:
+  resx 1
+
+}
+
+
