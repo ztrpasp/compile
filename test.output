@@ -1,0 +1,328 @@
+语法
+
+    0 $accept: lines $end
+
+    1 lines: lines stat ';'
+    2      | lines ';'
+    3      | %empty
+
+    4 stat: ID ASSIGN expr
+    5     | expr
+
+    6 expr: expr ADD expr
+    7     | expr SUB expr
+    8     | expr MUL expr
+    9     | expr DIV expr
+   10     | LPar expr RPar
+   11     | SUB expr
+   12     | NUMBER
+   13     | ID
+
+
+终结语词，附有它们出现处的规则
+
+    $end (0) 0
+    ';' (59) 1 2
+    error (256)
+    ID <str> (258) 4 13
+    NUMBER <dbl> (259) 12
+    ADD (260) 6
+    SUB (261) 7 11
+    MUL (262) 8
+    DIV (263) 9
+    LPar (264) 10
+    RPar (265) 10
+    ASSIGN (266) 4
+    UMINUS (267)
+
+
+非终结语词，附有它们出现处的规则
+
+    $accept (14)
+        on left: 0
+    lines (15)
+        on left: 1 2 3
+        on right: 0 1 2
+    stat <dbl> (16)
+        on left: 4 5
+        on right: 1
+    expr <dbl> (17)
+        on left: 6 7 8 9 10 11 12 13
+        on right: 4 5 6 7 8 9 10 11
+
+
+状态 0
+
+    0 $accept: . lines $end
+
+    $default  使用规则 3 以归约 (lines)
+
+    lines  转到状态 1
+
+
+状态 1
+
+    0 $accept: lines . $end
+    1 lines: lines . stat ';'
+    2      | lines . ';'
+
+    $end    偏移，并进入状态 2
+    ID      偏移，并进入状态 3
+    NUMBER  偏移，并进入状态 4
+    SUB     偏移，并进入状态 5
+    LPar    偏移，并进入状态 6
+    ';'     偏移，并进入状态 7
+
+    stat  转到状态 8
+    expr  转到状态 9
+
+
+状态 2
+
+    0 $accept: lines $end .
+
+    $default  接受
+
+
+状态 3
+
+    4 stat: ID . ASSIGN expr
+   13 expr: ID .
+
+    ASSIGN  偏移，并进入状态 10
+
+    $default  使用规则 13 以归约 (expr)
+
+
+状态 4
+
+   12 expr: NUMBER .
+
+    $default  使用规则 12 以归约 (expr)
+
+
+状态 5
+
+   11 expr: SUB . expr
+
+    ID      偏移，并进入状态 11
+    NUMBER  偏移，并进入状态 4
+    SUB     偏移，并进入状态 5
+    LPar    偏移，并进入状态 6
+
+    expr  转到状态 12
+
+
+状态 6
+
+   10 expr: LPar . expr RPar
+
+    ID      偏移，并进入状态 11
+    NUMBER  偏移，并进入状态 4
+    SUB     偏移，并进入状态 5
+    LPar    偏移，并进入状态 6
+
+    expr  转到状态 13
+
+
+状态 7
+
+    2 lines: lines ';' .
+
+    $default  使用规则 2 以归约 (lines)
+
+
+状态 8
+
+    1 lines: lines stat . ';'
+
+    ';'  偏移，并进入状态 14
+
+
+状态 9
+
+    5 stat: expr .
+    6 expr: expr . ADD expr
+    7     | expr . SUB expr
+    8     | expr . MUL expr
+    9     | expr . DIV expr
+
+    ADD  偏移，并进入状态 15
+    SUB  偏移，并进入状态 16
+    MUL  偏移，并进入状态 17
+    DIV  偏移，并进入状态 18
+
+    $default  使用规则 5 以归约 (stat)
+
+
+状态 10
+
+    4 stat: ID ASSIGN . expr
+
+    ID      偏移，并进入状态 11
+    NUMBER  偏移，并进入状态 4
+    SUB     偏移，并进入状态 5
+    LPar    偏移，并进入状态 6
+
+    expr  转到状态 19
+
+
+状态 11
+
+   13 expr: ID .
+
+    $default  使用规则 13 以归约 (expr)
+
+
+状态 12
+
+    6 expr: expr . ADD expr
+    7     | expr . SUB expr
+    8     | expr . MUL expr
+    9     | expr . DIV expr
+   11     | SUB expr .
+
+    $default  使用规则 11 以归约 (expr)
+
+
+状态 13
+
+    6 expr: expr . ADD expr
+    7     | expr . SUB expr
+    8     | expr . MUL expr
+    9     | expr . DIV expr
+   10     | LPar expr . RPar
+
+    ADD   偏移，并进入状态 15
+    SUB   偏移，并进入状态 16
+    MUL   偏移，并进入状态 17
+    DIV   偏移，并进入状态 18
+    RPar  偏移，并进入状态 20
+
+
+状态 14
+
+    1 lines: lines stat ';' .
+
+    $default  使用规则 1 以归约 (lines)
+
+
+状态 15
+
+    6 expr: expr ADD . expr
+
+    ID      偏移，并进入状态 11
+    NUMBER  偏移，并进入状态 4
+    SUB     偏移，并进入状态 5
+    LPar    偏移，并进入状态 6
+
+    expr  转到状态 21
+
+
+状态 16
+
+    7 expr: expr SUB . expr
+
+    ID      偏移，并进入状态 11
+    NUMBER  偏移，并进入状态 4
+    SUB     偏移，并进入状态 5
+    LPar    偏移，并进入状态 6
+
+    expr  转到状态 22
+
+
+状态 17
+
+    8 expr: expr MUL . expr
+
+    ID      偏移，并进入状态 11
+    NUMBER  偏移，并进入状态 4
+    SUB     偏移，并进入状态 5
+    LPar    偏移，并进入状态 6
+
+    expr  转到状态 23
+
+
+状态 18
+
+    9 expr: expr DIV . expr
+
+    ID      偏移，并进入状态 11
+    NUMBER  偏移，并进入状态 4
+    SUB     偏移，并进入状态 5
+    LPar    偏移，并进入状态 6
+
+    expr  转到状态 24
+
+
+状态 19
+
+    4 stat: ID ASSIGN expr .
+    6 expr: expr . ADD expr
+    7     | expr . SUB expr
+    8     | expr . MUL expr
+    9     | expr . DIV expr
+
+    ADD  偏移，并进入状态 15
+    SUB  偏移，并进入状态 16
+    MUL  偏移，并进入状态 17
+    DIV  偏移，并进入状态 18
+
+    $default  使用规则 4 以归约 (stat)
+
+
+状态 20
+
+   10 expr: LPar expr RPar .
+
+    $default  使用规则 10 以归约 (expr)
+
+
+状态 21
+
+    6 expr: expr . ADD expr
+    6     | expr ADD expr .
+    7     | expr . SUB expr
+    8     | expr . MUL expr
+    9     | expr . DIV expr
+
+    MUL  偏移，并进入状态 17
+    DIV  偏移，并进入状态 18
+
+    $default  使用规则 6 以归约 (expr)
+
+
+状态 22
+
+    6 expr: expr . ADD expr
+    7     | expr . SUB expr
+    7     | expr SUB expr .
+    8     | expr . MUL expr
+    9     | expr . DIV expr
+
+    MUL  偏移，并进入状态 17
+    DIV  偏移，并进入状态 18
+
+    $default  使用规则 7 以归约 (expr)
+
+
+状态 23
+
+    6 expr: expr . ADD expr
+    7     | expr . SUB expr
+    8     | expr . MUL expr
+    8     | expr MUL expr .
+    9     | expr . DIV expr
+
+    $default  使用规则 8 以归约 (expr)
+
+
+状态 24
+
+    6 expr: expr . ADD expr
+    7     | expr . SUB expr
+    8     | expr . MUL expr
+    9     | expr . DIV expr
+    9     | expr DIV expr .
+
+    $default  使用规则 9 以归约 (expr)

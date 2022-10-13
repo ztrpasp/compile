@@ -3,7 +3,7 @@
 expr1.y
 YACC file
 Date: 2022/10/08
-贾宇航 <2013628@mail.nankai.edu.cn>
+张文迪 <2013605@mail.nankai.edu.cn>
 */
 #include<stdio.h>
 #include<stdlib.h>
