@@ -10,7 +10,7 @@ Date: xxxx/xx/xx
 #define YYSTYPE double
 #endif
 int yylex();
-int isdigit();
+// int isdigit();
 extern int yyparse();
 FILE* yyin;
 void yyerror(const char* s );
@@ -41,12 +41,12 @@ expr  : expr ADD expr { $$ = $1 + $3; }
 
 
 %%
-int isdigit(t)
-{
-    if(t=='0'||t=='1'||t=='2'||t=='3'||t=='4'||t=='5'||t=='6'||t=='7'||t=='8'||t=='9')
-        return 1;
-    else return 0;
-}
+// int isdigit(t)
+// {
+//     if(t=='0'||t=='1'||t=='2'||t=='3'||t=='4'||t=='5'||t=='6'||t=='7'||t=='8'||t=='9')
+//         return 1;
+//     else return 0;
+// }
 // programs section
 int yylex()
 {
