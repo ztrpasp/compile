@@ -1368,7 +1368,7 @@ yyreduce:
   case 10:
 #line 48 "expr3.y"
                               { yyval = (char *)malloc(50*sizeof (char)); strcpy(yyval,"-");
-                        strcpy(yyval,yyvsp[0]);strcat(yyval," ");}
+                        strcat(yyval,yyvsp[0]);strcat(yyval," ");}
 #line 1373 "expr3.tab.c"
     break;
 

@@ -6,57 +6,61 @@ Date: xxxx/xx/xx
 张文迪 <2013605@mail.nankai.edu.cn>
 */
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#ifndef YYSTYPE
-//后缀表达式输出需要以字符串形式
-#define YYSTYPE char*
-#endif
+#include<iostream>
+#include<map>
+#include<string.h>
+using namespace std;
 char idStr [50];//存储ID字符串
-char numStr[50];//存储多位数字
+map<string ,double> Item;
 int yylex();
-// int isdigit(char t);
+// int isdigit();
 extern int yyparse();
 FILE* yyin;
 void yyerror(const char* s );
 %}
 
-%token ID
-%token NUMBER
-%token ADD SUB MUL DIV LPar RPar
+%union{ 
+    double dbl;
+    char* str;
+};
+%type <dbl> expr stat
+%token <str>ID
+%token <dbl>NUMBER
+%token ADD SUB MUL DIV LPar RPar ASSIGN
+
+%right ASSIGN//右结合，优先级最低；
 %left ADD SUB
 %left MUL DIV
 %right UMINUS
 
 %%
 
-lines : lines expr ';' { printf("%s\n", $2); }
+lines : lines stat ';' { printf("%f\n", $2); }
       | lines ';'
       |
       ;
 
-expr  : expr ADD expr { $$ = (char *)malloc(50*sizeof (char)); strcpy($$,$1);
-                        strcat($$,$3); strcat($$,"+ "); }
-      | expr SUB expr { $$ = (char *)malloc(50*sizeof (char)); strcpy($$,$1);
-                        strcat($$,$3); strcat($$,"- "); }
-      | expr MUL expr { $$ = (char *)malloc(50*sizeof (char)); strcpy($$,$1);
-                        strcat($$,$3); strcat($$,"* "); }
-      | expr DIV expr { $$ = (char *)malloc(50*sizeof (char)); strcpy($$,$1);
-                        strcat($$,$3); strcat($$,"/ "); }
-      | LPar expr RPar  { $$ = (char *)malloc(50*sizeof (char)); strcpy($$,$2);
-                        strcat($$," ");}
-      | SUB expr %prec UMINUS { $$ = (char *)malloc(50*sizeof (char)); strcpy($$,"-");
-                        strcat($$,$2);strcat($$," ");}
-      | NUMBER        { $$ = (char *)malloc(50*sizeof (char));strcpy($$, $1); 
-                        strcat($$," ");}
-      | ID            { $$ = (char *)malloc(50*sizeof (char));strcpy($$, $1); 
-                        strcat($$," ");}
+stat  : ID ASSIGN expr { $$ = $3;Item[(string)$1]=$3; } 
+      | expr {$$ = $1; }
+      ;
+
+expr  : expr ADD expr { $$ = $1 + $3; }
+      | expr SUB expr { $$ = $1 - $3; }
+      | expr MUL expr { $$ = $1 * $3; }
+      | expr DIV expr { $$ = $1 / $3; }
+      | LPar expr RPar  { $$ = $2; }
+      | SUB expr %prec UMINUS { $$ = -$2; }
+      | NUMBER  {$$ = $1;}
+      | ID {$$=Item.find((string)$1)->second;}
       ;
       
 
 
 %%
-// int isdigit(char t)
+
+
+
+// int isdigit(t)
 // {
 //     if(t=='0'||t=='1'||t=='2'||t=='3'||t=='4'||t=='5'||t=='6'||t=='7'||t=='8'||t=='9')
 //         return 1;
@@ -72,19 +76,16 @@ int yylex()
         t = getchar();
         if(t==' ' || t=='\t' || t== '\n')
         {
-            //什么也不用做
+            //什么都不做
         }
         else if(isdigit(t))
         {
-            int ti = 0;
+            yylval.dbl = 0;
             while(isdigit(t))
             {
-                numStr[ti]=t;
+                yylval.dbl=yylval.dbl * 10 + t - '0';
                 t = getchar();
-                ti++;
             }
-            numStr[ti]='\0';
-            yylval=numStr;
             ungetc(t , stdin );//将读出的多余字符再次放回到缓冲区去
             return NUMBER;
         }
@@ -99,9 +100,19 @@ int yylex()
                 t = getchar();
             }
                 idStr[ ti ]='\0';
-                yylval=idStr ;
+                yylval.str=idStr;
                 ungetc(t , stdin);
-                return ID;
+                string s(&idStr[0],&idStr[strlen(idStr)]);
+                map<string,double>::iterator iter = Item.find(s);
+                if(iter != Item.end())
+                {
+                    return ID;
+                }
+                else
+                {
+                    Item.insert(pair<string,double>(s, iter->second));
+                    return ID;
+                }
         }
         else
         {
@@ -119,6 +130,8 @@ int yylex()
                     return LPar;break;
                 case ')':
                     return RPar;break;
+                case '=':
+                    return ASSIGN;break;
                 default:
                     return t;
             }
