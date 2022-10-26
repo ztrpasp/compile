@@ -1,55 +1,113 @@
-//iamafunction:thisfunctionhasmanysyntaxerrors.[DEBUG LAB4]: 	INT	int
-f[DEBUG LAB4]: 	LPAREN	(
+[DEBUG LAB4]: 	linecomment	// i am a function: this function has many syntax errors.	linenum:1
+[DEBUG LAB4]: 	INT	int
+[DEBUG LAB4]: 	ID	f	linenum:3	IDcount:0
+[DEBUG LAB4]: 	LPAREN	(
 [DEBUG LAB4]: 	RPAREN	)
 [DEBUG LAB4]: 	LBRACE	{
 [DEBUG LAB4]: 	INT	int
-a[DEBUG LAB4]: 	SEMICOLON	;
-a[DEBUG LAB4]: 	ASSIGN	=
+[DEBUG LAB4]: 	ID	a	linenum:4	IDcount:1
+[DEBUG LAB4]: 	SEMICOLON	;
+[DEBUG LAB4]: 	ID	a	linenum:5	IDcount:1
+[DEBUG LAB4]: 	ASSIGN	=
 0[DEBUG LAB4]: 	SEMICOLON	;
-while[DEBUG LAB4]: 	LPAREN	(
-a[DEBUG LAB4]: 	LESS	<
+[DEBUG LAB4]: 	ID	while	linenum:6	IDcount:2
+[DEBUG LAB4]: 	LPAREN	(
+[DEBUG LAB4]: 	ID	a	linenum:6	IDcount:1
+[DEBUG LAB4]: 	LESS	<
 10[DEBUG LAB4]: 	RPAREN	)
 [DEBUG LAB4]: 	LBRACE	{
-a[DEBUG LAB4]: 	ASSIGN	=
-a*2345[DEBUG LAB4]: 	SEMICOLON	;
+[DEBUG LAB4]: 	ID	a	linenum:7	IDcount:3
+[DEBUG LAB4]: 	ASSIGN	=
+[DEBUG LAB4]: 	ID	a	linenum:7	IDcount:3
+*2345[DEBUG LAB4]: 	SEMICOLON	;
 [DEBUG LAB4]: 	RBRACE	}
 [DEBUG LAB4]: 	RETURN	return
-a[DEBUG LAB4]: 	SEMICOLON	;
+[DEBUG LAB4]: 	ID	a	linenum:9	IDcount:1
+[DEBUG LAB4]: 	SEMICOLON	;
 [DEBUG LAB4]: 	RBRACE	}
 [DEBUG LAB4]: 	INT	int
-main[DEBUG LAB4]: 	LPAREN	(
+[DEBUG LAB4]: 	ID	main	linenum:12	IDcount:4
+[DEBUG LAB4]: 	LPAREN	(
 [DEBUG LAB4]: 	RPAREN	)
 [DEBUG LAB4]: 	LBRACE	{
 [DEBUG LAB4]: 	INT	int
-_testid[DEBUG LAB4]: 	SEMICOLON	;
-_testid[DEBUG LAB4]: 	ASSIGN	=
+[DEBUG LAB4]: 	ID	_testid	linenum:13	IDcount:5
+[DEBUG LAB4]: 	SEMICOLON	;
+[DEBUG LAB4]: 	ID	_testid	linenum:14	IDcount:5
+[DEBUG LAB4]: 	ASSIGN	=
 0[DEBUG LAB4]: 	SEMICOLON	;
 [DEBUG LAB4]: 	IF	if
 [DEBUG LAB4]: 	LPAREN	(
-_testid[DEBUG LAB4]: 	ASSIGN	=
+[DEBUG LAB4]: 	ID	_testid	linenum:15	IDcount:5
+[DEBUG LAB4]: 	ASSIGN	=
 [DEBUG LAB4]: 	ASSIGN	=
 0[DEBUG LAB4]: 	RPAREN	)
 [DEBUG LAB4]: 	LBRACE	{
 [DEBUG LAB4]: 	INT	int
-_testid[DEBUG LAB4]: 	SEMICOLON	;
+[DEBUG LAB4]: 	ID	_testid	linenum:16	IDcount:6
+[DEBUG LAB4]: 	SEMICOLON	;
 [DEBUG LAB4]: 	INT	int
-_testid2[DEBUG LAB4]: 	SEMICOLON	;
-_testid1[DEBUG LAB4]: 	ASSIGN	=
-_testid1[DEBUG LAB4]: 	ADD	+
+[DEBUG LAB4]: 	ID	_testid2	linenum:17	IDcount:7
+[DEBUG LAB4]: 	SEMICOLON	;
+[DEBUG LAB4]: 	ID	_testid1	linenum:18	IDcount:8
+[DEBUG LAB4]: 	ASSIGN	=
+[DEBUG LAB4]: 	ID	_testid1	linenum:18	IDcount:8
+[DEBUG LAB4]: 	ADD	+
 1[DEBUG LAB4]: 	SEMICOLON	;
 [DEBUG LAB4]: 	RBRACE	}
-/*Commentlines[DEBUG LAB4]: 	SEMICOLON	;
-*/[DEBUG LAB4]: 	LBRACE	{
+[DEBUG LAB4]: 	commentbegin	/*	linenum:20
+[DEBUG LAB4]: 	comment	EOL	linenum:21
+[DEBUG LAB4]: 	comment			linenum:21
+[DEBUG LAB4]: 	comment			linenum:21
+[DEBUG LAB4]: 	comment	C	linenum:21
+[DEBUG LAB4]: 	comment	o	linenum:21
+[DEBUG LAB4]: 	comment	m	linenum:21
+[DEBUG LAB4]: 	comment	m	linenum:21
+[DEBUG LAB4]: 	comment	e	linenum:21
+[DEBUG LAB4]: 	comment	n	linenum:21
+[DEBUG LAB4]: 	comment	t	linenum:21
+[DEBUG LAB4]: 	comment	 	linenum:21
+[DEBUG LAB4]: 	comment	l	linenum:21
+[DEBUG LAB4]: 	comment	i	linenum:21
+[DEBUG LAB4]: 	comment	n	linenum:21
+[DEBUG LAB4]: 	comment	e	linenum:21
+[DEBUG LAB4]: 	comment	s	linenum:21
+[DEBUG LAB4]: 	comment	;	linenum:21
+[DEBUG LAB4]: 	comment	EOL	linenum:22
+[DEBUG LAB4]: 	comment			linenum:22
+[DEBUG LAB4]: 	commentend	*/	linenum:22
+[DEBUG LAB4]: 	LBRACE	{
 [DEBUG LAB4]: 	INT	int
-a[DEBUG LAB4]: 	SEMICOLON	;
+[DEBUG LAB4]: 	ID	a	linenum:24	IDcount:9
+[DEBUG LAB4]: 	SEMICOLON	;
 [DEBUG LAB4]: 	RBRACE	}
 [DEBUG LAB4]: 	LBRACE	{
 [DEBUG LAB4]: 	INT	int
-a[DEBUG LAB4]: 	SEMICOLON	;
+[DEBUG LAB4]: 	ID	a	linenum:27	IDcount:10
+[DEBUG LAB4]: 	SEMICOLON	;
 [DEBUG LAB4]: 	RBRACE	}
 [DEBUG LAB4]: 	INT	int
-b[DEBUG LAB4]: 	SEMICOLON	;
+[DEBUG LAB4]: 	ID	b	linenum:29	IDcount:11
+[DEBUG LAB4]: 	SEMICOLON	;
 [DEBUG LAB4]: 	RETURN	return
 0[DEBUG LAB4]: 	SEMICOLON	;
 [DEBUG LAB4]: 	RBRACE	}
-/*Commentlines.*/
+[DEBUG LAB4]: 	commentbegin	/*	linenum:33
+[DEBUG LAB4]: 	comment	EOL	linenum:34
+[DEBUG LAB4]: 	comment			linenum:34
+[DEBUG LAB4]: 	comment	C	linenum:34
+[DEBUG LAB4]: 	comment	o	linenum:34
+[DEBUG LAB4]: 	comment	m	linenum:34
+[DEBUG LAB4]: 	comment	m	linenum:34
+[DEBUG LAB4]: 	comment	e	linenum:34
+[DEBUG LAB4]: 	comment	n	linenum:34
+[DEBUG LAB4]: 	comment	t	linenum:34
+[DEBUG LAB4]: 	comment	 	linenum:34
+[DEBUG LAB4]: 	comment	l	linenum:34
+[DEBUG LAB4]: 	comment	i	linenum:34
+[DEBUG LAB4]: 	comment	n	linenum:34
+[DEBUG LAB4]: 	comment	e	linenum:34
+[DEBUG LAB4]: 	comment	s	linenum:34
+[DEBUG LAB4]: 	comment	.	linenum:34
+[DEBUG LAB4]: 	comment	EOL	linenum:35
+[DEBUG LAB4]: 	commentend	*/	linenum:35

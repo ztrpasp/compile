@@ -18,6 +18,9 @@
     #ifdef ONLY_FOR_LEX
     #include <ostream>
     #include <fstream>
+    #include <iostream>
+    #include <stack>
+    #include <vector>
     using namespace std;
     extern FILE *yyin; 
     extern FILE *yyout;
@@ -28,15 +31,92 @@
     }
     #endif
 %}
+%{
+    
+    class idSymbol{
+    public:
+        string idName;//标识符
+        int scopeNum;//作用域
+        int idNum;//标识符的编号，后续可改为指针
+        idSymbol();
+        idSymbol(string s);
+    };
+    idSymbol::idSymbol(){
+        this->scopeNum=0;
+        this->idNum=0;
+    }
+    idSymbol::idSymbol(string s){
+        this->scopeNum=0;
+        this->idNum=0;
+        this->idName=s;
+    }
+    int idSum = 0;//全局的标识符编号
+    int scopeSum = 0;//词法分析出现的作用域的个数
+    stack<int> scopeStru;
+    
+    vector<idSymbol> table;
+    
+%}
 
-DECIMIAL ([1-9][0-9]*|0)
+DECIMIAL ([1-9][0-9]*|0) 
 ID [[:alpha:]_][[:alpha:][:digit:]_]*
+CHAR ('[:alpha:]')
 EOL (\r\n|\n|\r)
 WHITE [\t ]
+
+LINECOMMENT (\/\/[^\n]*)  
+BLOCKCOMMENTBEGIN "/*"
+BLOCKCOMMENTPRO (.|\n)
+BLOCKCOMMENTEND "*/"
+
 %x BLOCKCOMMENT
 
 %%
+{LINECOMMENT} {
+    #ifdef ONLY_FOR_LEX
+        string a = yytext;
+        string tmp = "linecomment\t" +  a +  "\tlinenum:" + to_string(yylineno);//注释的打印，可忽略
+        DEBUG_FOR_LAB4(tmp);
+    #else 
+        return LINECOMMENT;
+    #endif
+}
+{BLOCKCOMMENTBEGIN} {
+    #ifdef ONLY_FOR_LEX
+        BEGIN BLOCKCOMMENT;
+        string a = yytext;
 
+        string temp = "commentbegin\t" + a +"\tlinenum:" + to_string(yylineno);
+        DEBUG_FOR_LAB4(temp);
+    #else 
+        return BLOCKCOMMENTBEGIN;
+    #endif
+}
+
+<BLOCKCOMMENT>{BLOCKCOMMENTEND} {
+    #ifdef ONLY_FOR_LEX
+        string a = yytext;
+        string temp = "commentend\t" + a +"\tlinenum:" + to_string(yylineno);
+        DEBUG_FOR_LAB4(temp);
+        BEGIN INITIAL;
+    #else 
+        return BLOCKCOMMENTEND;
+    #endif
+}
+
+<BLOCKCOMMENT>{BLOCKCOMMENTPRO} {
+    #ifdef ONLY_FOR_LEX
+        string a = yytext;
+        if(a=="\n"){
+            yylineno++;
+            a="EOL";
+        }
+        string temp = "comment\t" + a +"\tlinenum:" + to_string(yylineno);
+        DEBUG_FOR_LAB4(temp);
+    #else 
+        return BLOCKCOMMENTPRO;
+    #endif
+}
 "int" {
     /*
     * Questions: 
@@ -122,6 +202,8 @@ WHITE [\t ]
 }
 "{" {
     #ifdef ONLY_FOR_LEX
+        scopeSum++;//作用域改变
+        scopeStru.push(scopeSum);
         DEBUG_FOR_LAB4("LBRACE\t{");
     #else
         return LBRACE;
@@ -129,7 +211,37 @@ WHITE [\t ]
 }
 "}" {
     #ifdef ONLY_FOR_LEX
+        scopeStru.pop();
         DEBUG_FOR_LAB4("RBRACE\t}");
+    #else
+        return RBRACE;
+    #endif
+}
+{ID} {
+    #ifdef ONLY_FOR_LEX
+        string m = yytext;
+        vector<idSymbol>::iterator iter;
+        string temp;
+        for (iter = table.begin(); iter != table.end(); iter++)
+	    {
+		    if(iter->idName==m && iter->scopeNum==scopeStru.top())
+            {
+                temp= "ID\t" + m + "\tlinenum:" + to_string(yylineno) + "\tIDcount:" + to_string(iter->idNum);
+                break;
+            }
+	    }
+        if(iter==table.end())
+        {
+            idSymbol tmp(m);
+            tmp.idNum=idSum;
+            if(scopeStru.size() != 0){
+                tmp.scopeNum=scopeStru.top();
+             }
+            table.insert(table.begin()+idSum,tmp);
+            idSum++;
+            temp= "ID\t" + m + "\tlinenum:" + to_string(yylineno) + "\tIDcount:" + to_string(tmp.idNum);
+      }
+        DEBUG_FOR_LAB4(temp);
     #else
         return RBRACE;
     #endif
